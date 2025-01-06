@@ -29,8 +29,9 @@ public class Network {
      *  If there is no such user, returns null.
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
+        name = name.toLowerCase();
         for (int i = 0; i < userCount; i++) {
-            if (users[i].getName().equals(name)) {
+            if (users[i].getName().toLowerCase().equals(name)) {
                 return users[i];
             }
         }
@@ -61,6 +62,9 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
+        if (name1 == name2) {
+            return false;
+        }
         if (getUser(name1) == null || getUser(name2) == null) {
             return false;
         }
@@ -91,6 +95,9 @@ public class Network {
     /** Computes and returns the name of the most popular user in this network: 
      *  The user who appears the most in the follow lists of all the users. */
     public String mostPopularUser() {
+        if (userCount == 0) {
+            return null;
+        }
         int apMost = 0;
         String popUser = users[0].getName();
         for (int i = 0; i < userCount; i++) {
@@ -107,7 +114,7 @@ public class Network {
     private int followeeCount(String name) {
         int counter = 0;
         for (int i = 0; i < userCount; i++) {
-            if (getUser(name).follows(users[i].getName())) {
+            if (users[i].follows(name)) {
                 counter++;
             }
         }
