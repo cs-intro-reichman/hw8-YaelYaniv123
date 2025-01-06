@@ -64,8 +64,13 @@ public class Network {
         if (name1 == name2) {
             return false;
         }
-        if (getUser(name1) == null || getUser(name2) == null
-            || name1.equals(null) || name2.equals(null)) {
+        if (name1.equals(null) || name2.equals(null)) {
+            return false;
+        }
+        if (getUser(name1) == null || getUser(name2) == null) {
+            return false;
+        }
+        if (getUser(name1).follows(name2)) {
             return false;
         }
         getUser(name1).addFollowee(name2);
