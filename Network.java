@@ -29,9 +29,8 @@ public class Network {
      *  If there is no such user, returns null.
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
-        name = name.toLowerCase();
         for (int i = 0; i < userCount; i++) {
-            if (users[i].getName().toLowerCase().equals(name)) {
+            if (users[i].getName().toLowerCase().equals(name.toLowerCase())) {
                 return users[i];
             }
         }
@@ -65,7 +64,8 @@ public class Network {
         if (name1 == name2) {
             return false;
         }
-        if (getUser(name1) == null || getUser(name2) == null) {
+        if (getUser(name1) == null || getUser(name2) == null
+            || name1.equals(null) || name2.equals(null)) {
             return false;
         }
         getUser(name1).addFollowee(name2);
